@@ -1,0 +1,35 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+{% block content %}
+
+<div id="extra" class="container">
+		<div class="title">
+			<h2>Enter a Post to Be Analyzed</h2>
+    <div class="postbox">
+    	<form role="form" method="POST">
+        <label for="content"></label>
+        <textarea class="form-control" id="content" name="content" placeholder="Entry content" rows="20" cols="125" required></textarea>
+			        <li><a href=# name="anonymize" class="button">Anonymize</a> <a href="{{ url_for('analyzeresults_get') }}" name="analyze" class="buttoncenter">Analyze</a> <a href=# name="reccomendize" class="buttonright">Reccomendize</a></li>				
+  	</form>
+  </div>
+</form>
+		<div id="three-column">
+			<div class="boxA">
+				<div class="box"> <span class="fa fa-cloud-download"></span>
+					<p>Anonymize posts to hide your identity.</p>
+				</div>
+			</div>
+			<div class="boxB">
+				<div class="box"> <span class="fa fa-cogs"></span>
+					<p>Analyze your post using a variety of techniques.</p>
+				</div>
+			</div>
+
+			<div class="boxC">
+				<div class="box"> <span class="fa fa-user"></span>
+					<p> Get reccomendations based on your post.</p>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}

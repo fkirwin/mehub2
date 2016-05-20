@@ -1,0 +1,46 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+{% block content %}
+<div id="extra" class="container">
+		<div class="title">
+			<h2>The results are in!</h2>
+      
+		<div id="three-column">
+			<div class="boxA">
+				<div class="box"> <span class="fa fa-cloud-download"></span>
+					<p>Negative Sentiment Score:
+							{{postNeg}}</p>
+				</div>
+			</div>
+			<div class="boxB">
+				<div class="box"> <span class="fa fa-cogs"></span>
+					<p>Overall sentiment:
+						{{overall}}</p>
+				</div>
+			</div>
+			<div class="boxC">
+				<div class="box"> <span class="fa fa-user"></span>
+					<p> Postive Sentiment Score: 
+							{{postPos}}</p>
+				</div>
+			</div>
+		</div>
+  <div class="table">
+    <table>
+  <tr>
+    <th>Word</th>
+    <th>Prevalence</th>
+    <th>Is Valid</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+    <td>Dunno</td>
+  </tr>
+</table>
+      </div>
+		<ul class="actions">
+			<li><a href="#" class="button">Try Again</a></li>
+		</ul>
+	</div>
+{% endblock %}
