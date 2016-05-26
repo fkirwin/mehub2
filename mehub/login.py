@@ -1,4 +1,4 @@
-"""
+
 from flask.ext.login import LoginManager
 
 from . import app
@@ -13,4 +13,3 @@ login_manager.login_message_category = "danger"
 @login_manager.user_loader
 def load_user(id):
     return session.query(User).get(int(id))
-"""

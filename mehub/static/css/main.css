@@ -181,7 +181,24 @@
 /*********************************************************************************/
 /* Button Style                                                                  */
 /*********************************************************************************/
-	.buttonMainCenter
+.buttonRegister
+	{
+
+		padding: 0em 3em;
+		background: #009E2D;
+		letter-spacing: 0.20em;
+		line-height: 4em;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 400;
+		font-size: 1em;
+		color: #FFF;
+    margin-left: 850px;
+    margin-right: 0px;
+    text-align: center;
+    margin-top: 1.5em;
+	}	
+.buttonMainCenter
 	{
 		display: inline-block;
 		padding: 0em 3em;
@@ -638,7 +655,35 @@ table {
     padding: 10px;
 }
 
+.login-form-group-top{
+    border-collapse: collapse;
+    margin-top: 1em;
+    margin-left:auto; 
+    margin-right:auto;
+    border-spacing: 10px 50px;
+    text-align: center;
+    color:#333333;
+}
 
+.login-form-group-bottom{
+    border-collapse: collapse;
+    margin-top: .2em;
+    margin-left:auto; 
+    margin-right:auto;
+    border-spacing: 1px 50px;
+    text-align: center;
+    color:#333333;
+}
+
+.register{
+    border-collapse: collapse;
+    margin-top: .2em;
+    margin-left:auto; 
+    margin-right:auto;
+    border-spacing: 10px 50px;
+    text-align: center;
+    color:#333333;
+}
 
 
 	

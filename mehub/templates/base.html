@@ -36,9 +36,10 @@ Released   : 20140309
 		</div>
 		<div id="menu">
 			<ul>
-				<li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
-				<li class="current_page_item"><a href="https://fred-workspace-fkirwin.c9users.io/analysispage" accesskey="2" title="">Analyze Self</a></li>
-				<li class="current_page_item"><a href="#" accesskey="3" title="">Create an Account</a></li>
+				<li class="current_page_item"><a href="{{ url_for('homepage') }}" accesskey="1" title="">Homepage</a></li>
+				<li class="current_page_item"><a href="{{ url_for('analysispage_get') }}" accesskey="2" title="">Analyze Self</a></li>
+				<li class="current_page_item"><a href="{{ url_for('createAccount') }}" accesskey="3" title="">Create an Account</a></li>
+				<li class="current_page_item"><a href="{{ url_for('login') }}" accesskey="4" title="">Login</a></li>
 			</ul>
 			
 		</div>
