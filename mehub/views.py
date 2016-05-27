@@ -1,8 +1,8 @@
 from mehub.classes import *
 from mehub.customfunctions import *
-from flask.sessions import SessionInterface, SessionMixin, SecureCookieSession
+from flask.sessions import SessionInterface, SessionMixin
 from . import app
-from .database import session, Entry, User
+from mehub.database import session, Entry, User
 from werkzeug.security import check_password_hash
 from flask import request, redirect, url_for, session, flash, render_template
 import time
@@ -10,6 +10,7 @@ from mehub.customfunctions import getSentiment
 from mehub.classes import *
 from werkzeug.contrib.cache import SimpleCache
 from flask.ext.login import login_required, logout_user, current_user, login_user
+
 
 
 
@@ -62,15 +63,22 @@ def analyzeresults_get():
 @app.route("/createaccount", methods=["GET", "POST"])  
 def createAccount():
     if request.method=='GET':
-        return render_template("createaccount.html")
+            return render_template("createaccount.html")
     elif request.method=='POST':
         email = request.form["email"]
         password = request.form["password"]
         passwordconfirm=request.form["passwordConfirm"]
+        email = "creator@mehub.com"
+        password = "password"
+        userAdmin = session.query(User).filter_by(email=email).first()
+        if not userAdmin or not check_password_hash(userAdmin.password, password):
+            return render_template("login.html")
+        else:
+            login_user(userAdmin)
         if password==passwordconfirm:
             user = User(
                 email = email,
-                password = password)
+                password = generate_password_hash(password))
             session.add(user)
             session.commit()
             time.sleep(3)
@@ -78,7 +86,7 @@ def createAccount():
             login_user(user)
             return redirect(url_for("homepage"))
     
-
+"""
 @app.route("/login", methods=["GET", "POST"])  
 def login():
     if request.method=='GET':
@@ -87,17 +95,33 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
         user = session.query(User).filter_by(email=email).first()
+        if not user or not check_password_hash(user.password, password):
+            flash("Incorrect username or password", "danger")
+            return redirect(url_for("login"))
+        else:
+            login_user(user)
+            return redirect(url_for("homepage"))
+"""
+
+@app.route("/login", methods=["GET"])
+def login_get():
+    return render_template("login.html")
+    
+@app.route("/login", methods=["POST"])
+def login_post():
+    email = request.form["email"]
+    password = request.form["password"]
+    user = session.query(User).filter_by(email=email).first()
     if not user or not check_password_hash(user.password, password):
         flash("Incorrect username or password", "danger")
         return redirect(url_for("login"))
     else:
         login_user(user)
         return redirect(url_for("homepage"))
-    
-
+"""
 @app.route('/logout', methods=["GET"])
 def logout_get():
     logout_user()
     flash('You were logged out')
     return render_template("login.html")
-    
+    """
