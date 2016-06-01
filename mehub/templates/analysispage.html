@@ -9,7 +9,8 @@
     	<form role="form" method="POST">
         <label for="content"></label>
         <textarea class="form-control" id="content" name="content" placeholder="Entry content" rows="20" cols="125" required></textarea>
-			        <li><a href=# name="anonymize" class="button">Anonymize</a> <a href="{{ url_for('analyzeresults_get') }}" name="analyze" class="buttoncenter">Analyze</a> <a href=# name="reccomendize" class="buttonright">Reccomendize</a></li>				
+			        <li><button type="submit" href=# name="anonymize" class="button" value="anonymize">Anonymize</button><button type="submit" href="{{ url_for('analyzeresults_get') }}" name="analyze" class="buttoncenter" value="analyze">Analyze</button><a href=# type="submit" name="reccomendize" class="buttonright">Reccomendize</a></li>				
+  	
   	</form>
   </div>
 </form>

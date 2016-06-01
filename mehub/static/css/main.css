@@ -354,12 +354,12 @@ display: inline-block;
 	
 	.tbox1
 	{
-		float: left;
+		margin: auto;
 	}
 
 	.tbox2
 	{
-		float: right;
+		margin: auto;
 	}
 	
 	#wrapper

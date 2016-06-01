@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash
 from flask import request, redirect, url_for, flash, render_template
 import flask
 import time
-from mehub.customfunctions import getSentiment
+from mehub.customfunctions import getSentiment, sentenceStructure, randomizePost, sentenizer
 from mehub.classes import *
 from werkzeug.contrib.cache import SimpleCache
 from flask.ext.login import login_required, logout_user, current_user, login_user
@@ -30,34 +30,50 @@ def analysispage_post():
     if request.method=="GET":
         render_template('analysispage.html')
     elif request.method=='POST':
-        payload=request.form["content"]
-        ##data=analyzePost()
-        ##data.dictionary={session['username']:payload}
-        flask.session['payload']=payload
-        anonymize=request.form["anonymize"]
-        analyze=request.form["analyze"]
-        reccomendize=request.form["reccomendize"]
-        if anonymize:
+        entry = Entry(
+            content=request.form["content"],
+            author=current_user
+            )
+        session.add(entry)
+        session.commit()
+        time.sleep(5)
+        if 'anonymize'in request.form.values():
             return redirect(url_for('analyzeresultspage'))
-        elif analyze:
-            return redirect(url_for('analyzeresultspage'))
-        elif reccomendize:
+        elif 'analyze' in request.form.values():
+            return redirect(url_for('analyzeresults_get'))
+        elif 'reccomendize' in request.form.values():
             return redirect(url_for('analyzeresultspage'))
         
     
 @app.route("/analyzeresultspage", methods=["GET", "POST"])
 def analyzeresults_get():
     if request.method=="GET":
-        payload=flask.session['payload']
-        post=getSentiment(payload)
+        payload=session.query(Entry.content).filter(Entry.author_id==flask.session['user_id']).order_by(Entry.id.desc()).first()
+        post=getSentiment(payload[0])
         postPos=post['pos']
         postNeg=post['neg']
         overall=verdictEvaluate(postPos, postNeg)
-        evalpost=post
+        words=sentenceStructure(payload[0])
+        neighbors = mrRogers(payload[0])
         return render_template("analyzeresultspage.html", 
         postPos=postPos, 
         postNeg=postNeg,
-        overall=evalpost)
+        overall=overall,
+        words = words
+        ##word = word,
+        ##neighbor=neighbor
+        )
+
+@app.route("/anonymize", methods=["GET"])
+def anonymize_get():
+    payload=session.query(Entry.content).filter(Entry.author_id==flask.session['user_id']).order_by(Entry.id.desc()).first()
+    yodaSays=yodaizePost(payload[0])
+    randomize= randomizePost(payload[0])
+    return render_template("anonymizeresultspage.html",
+    yodaSays = yodaSays,
+    randomize = randomize
+        )
+
 
 @app.route("/createaccount", methods=["GET", "POST"])  
 def createAccount():
@@ -77,7 +93,7 @@ def createAccount():
             flash('You successfully created an account.')
             login_user(user)
             return redirect(url_for("homepage"))
-
+    
 
 @app.route("/login", methods=["GET"])
 def login_get():

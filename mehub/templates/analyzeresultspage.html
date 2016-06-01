@@ -1,7 +1,7 @@
 {% import "macros.html" as macros %}
 {% extends "base.html" %}
 {% block content %}
-<div id="extra" class="container" method="POST">
+<div id="extra" class="container" method="GET">
 		<div class="title">
 			<h2>The results are in!</h2>
       
@@ -30,12 +30,16 @@
   <tr>
     <th>Word</th>
     <th>Prevalence</th>
-    <th>Is Valid</th>
+    <th>Word Length</th>
   </tr>
   <tr>
-    <td>January</td>
-    <td>$100</td>
-    <td>Dunno</td>
+  	{% for key, value in words.items() %}
+  	<tr>
+    <td>{{value['wordname']}}</td>
+    <td>{{value['count']}}</td>
+    <td>{{value['length']}}</td>
+    </tr>
+    {% endfor %}
   </tr>
 </table>
       </div>

@@ -1,0 +1,25 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+{% block content %}
+<div id="extra" class="container" method="GET">
+		<div class="title">
+			<h2>The results are in!</h2>
+      
+		<div id="two-column">
+			<div class="tbox1">
+				<div class="box"> <span class="fa fa-cloud-download"></span>
+					<p>Yodaized Post:
+							{{yodaSays}}</p>
+				</div>
+			<div class="tbox2">
+				<div class="box"> <span class="fa fa-user"></span>
+					<p> Anonymized Post: 
+							{{randomize}}</p>
+				</div>
+			</div>
+			<ul class="actions">
+			<li><a href="{{ url_for('analysispage_get') }}" class="buttonMainCenter">Try Again</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
